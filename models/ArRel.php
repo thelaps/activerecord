@@ -45,7 +45,7 @@ class ArRel extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'mods' => array(self::HAS_MANY, '\\models\\ArMod', 'ar_rel_id'),
+            'mods' => array(self::HAS_MANY, ArMod::class, 'ar_rel_id'),
 		);
 	}
 
@@ -55,11 +55,9 @@ class ArRel extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			/*'id' => 'Id',
-			'username' => 'Username',
-			'password' => 'Password',
-			'email' => 'Email',
-			'profile' => 'Profile',*/
+			'id' => 'Id',
+			'msg_child' => 'Child Message',
+			'date' => 'Created at',
 		);
 	}
 }

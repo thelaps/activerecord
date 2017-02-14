@@ -31,9 +31,9 @@ class ArMod extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			/*array('username, password, email', 'required'),
-			array('username, password, email', 'length', 'max'=>128),
-			array('profile', 'safe'),*/
+			array('msg', 'required'),
+			array('msg', 'length', 'max'=>8),
+			array('id, msg, ar_rel_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -45,7 +45,7 @@ class ArMod extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'rels' => array(self::HAS_ONE, '\\models\\ArRel', 'id'),
+			'rels' => array(self::HAS_ONE, ArRel::class, 'id'),
 		);
 	}
 
@@ -55,11 +55,9 @@ class ArMod extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			/*'id' => 'Id',
-			'username' => 'Username',
-			'password' => 'Password',
-			'email' => 'Email',
-			'profile' => 'Profile',*/
+            'id' => 'Id',
+            'msg' => 'Main message',
+            'ar_rel_id' => 'Relation Id',
 		);
 	}
 }

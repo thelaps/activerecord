@@ -261,7 +261,7 @@ class CComponent
                     return;
             }
         }
-        elseif(YII_DEBUG && !$this->hasEvent($name))
+        elseif(!$this->hasEvent($name))
             throw new \Exception('Event "'.get_class($this).'.'.$name.'" is not defined.');
     }
     public function evaluateExpression($_expression_,$_data_=array())

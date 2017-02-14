@@ -2,7 +2,10 @@
 
 namespace component\CModel;
 use component\CComponent;
+use component\CList;
 use component\CMapIterator;
+use validators\CRequiredValidator;
+use validators\CValidator;
 
 abstract class CModel extends CComponent
 {
@@ -106,15 +109,23 @@ abstract class CModel extends CComponent
 
 	public function createValidators()
 	{
-		return null;
+        $validators=new CList;
+        foreach($this->rules() as $rule)
+        {
+            if(isset($rule[0],$rule[1]))  // attributes, validator name
+                $validators->add(CValidator::createValidator($rule[1],$this,$rule[0],array_slice($rule,2)));
+            else
+                throw new \Exception(get_class($this) . ' has an invalid validation rule. The rule must specify attributes to be validated and the validator name.');
+        }
+        return $validators;
 	}
 
 	public function isAttributeRequired($attribute)
 	{
 		foreach($this->getValidators($attribute) as $validator)
 		{
-			/*if($validator instanceof CRequiredValidator)
-				return true;*/
+			if($validator instanceof CRequiredValidator)
+				return true;
 		}
 		return false;
 	}
